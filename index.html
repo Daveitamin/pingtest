@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Szolgáltatás Ellenőrzés</title>
+</head>
+<body>
+  <div class="container">
+    <h1>Ping Teszt</h1>
+    <input id="textinput" type="text" class="textfield" placeholder="Link(ek ','-vel elválasztva)">
+    <button onclick="pingWebsite()" class="button">Küldés</button>
+  </div>
+  <div id="results">
+
+  </div>
+  <script src="main.js"></script>
+  <div id="loading" class="loading-overlay">
+    <div class="loading-content">
+      <div class="spinner"></div>
+      <p>Pingelés folyamatban...</p>
+    </div>
+  </div>
+</body>
+</html>
