@@ -3,25 +3,40 @@ document.querySelector('.button').addEventListener('click', async () => {
 });
 
 async function Display() {
-    const response = await fetch('https://ping-api-vdavid.azurewebsites.net/api/Ping')
-    const pings = await response.json()
-    document.querySelector('#results').innerHTML = ''
+    const response = await fetch('https://ping-api-vdavid.azurewebsites.net/api/Ping');
+    const pings = await response.json();
+    document.querySelector('#results').innerHTML = '';
 
     pings.forEach(x => {
-        const card = document.createElement('div')
-        card.classList.add('card')
-        card.classList.add(x.status === "Success" ? 'success' : 'fail')
+        const card = document.createElement('div');
+        card.classList.add('card');
+
+        const statusText = String(x.status ?? '');
+        const statusCode = Number(statusText);
+        const isHttpOk = Number.isFinite(statusCode) && statusCode >= 200 && statusCode < 400;
+        const isError = statusText.startsWith('ERROR');
+
+        const ok = isHttpOk && !isError;
+
+        card.classList.add(ok ? 'success' : 'fail');
+
+        const badge = ok ? '✅ OK' : '❌ FAIL';
+        const subtitle = isError
+            ? statusText
+            : (Number.isFinite(statusCode) ? `HTTP ${statusCode}` : statusText);
+
+        const rt = (x.roundtripTime ?? 0);
+        const rtText = `${rt} ms`;
 
         card.innerHTML = `
-            <h3>${x.status === "Success" ? "✅ Success" : "❌ 404"}</h3>
+            <h3>${badge}</h3>
             <p><strong>URL:</strong> ${x.url}</p>
-            <p><strong>IP cím:</strong> ${x.address || 'null'}</p>
-            <p><strong>Válaszidő:</strong> ${x.roundtripTime} ms</p>
-            <p><strong>TTL:</strong> ${x.ttl}</p>
+            <p><strong>Státusz:</strong> ${subtitle}</p>
+            <p><strong>Válaszidő:</strong> ${rtText}</p>
         `;
-        
-        document.querySelector('#results').appendChild(card)
-    })
+
+        document.querySelector('#results').appendChild(card);
+    });
 }
 Display()
 
@@ -51,5 +66,6 @@ function pingWebsite() {
             loading.style.display = 'none';
         });
 }
+
 
 
