@@ -21,7 +21,7 @@ function renderResults() {
 
     card.classList.add(ok ? 'success' : 'fail');
 
-    const badge = ok ? '✅ OK' : '❌ FAIL';
+    const badge = ok ? '✅ ONLINE' : '❌ OFFLINE';
     const subtitle = isError ? statusText : (Number.isFinite(statusCode) ? `HTTP ${statusCode}` : statusText);
     const rt = (x.roundtripTime ?? 0);
 
@@ -76,3 +76,4 @@ async function pingWebsite() {
     if (loading) loading.style.display = 'none';
   }
 }
+
