@@ -3,7 +3,7 @@ document.querySelector('.button').addEventListener('click', async () => {
 });
 
 async function Display() {
-    const response = await fetch('https://ping-api-vdavid.azurewebsites.net/')
+    const response = await fetch('https://ping-api-vdavid.azurewebsites.net/api/Ping')
     const pings = await response.json()
     document.querySelector('#results').innerHTML = ''
 
@@ -36,7 +36,7 @@ function pingWebsite() {
     loading.style.display = 'flex';
 
     const requests = urls.map(url => {
-        return fetch(`http://localhost:5118/api/ping/${url}`, {
+        return fetch(`https://ping-api-vdavid.azurewebsites.net/api/Ping/${url}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: null
@@ -51,4 +51,5 @@ function pingWebsite() {
             loading.style.display = 'none';
         });
 }
+
 
