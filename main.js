@@ -28,8 +28,8 @@ function renderResults() {
     card.innerHTML = `
       <h3>${badge}</h3>
       <p><strong>URL:</strong> ${x.url}</p>
-      <p><strong>Státusz:</strong> ${subtitle}</p>
-      <p><strong>Válaszidő:</strong> ${rt} ms</p>
+      <p><strong>Status:</strong> ${subtitle}</p>
+      <p><strong>Response time:</strong> ${rt} ms</p>
     `;
 
     resultsEl.appendChild(card);
